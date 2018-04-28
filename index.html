@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <title>la pagina</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
+
+        <script>
+                var inicio=0;
+                var timeout=0;
+             
+                function empezarDetener(elemento)
+                {
+                    if(timeout==0)
+                    {
+                        // empezar el cronometro
+             
+                        elemento.value="Detener";
+             
+                        // Obtenemos el valor actual
+                        inicio=vuelta=new Date().getTime();
+             
+                        // iniciamos el proceso
+                        funcionando();
+                    }else{
+                        // detemer el cronometro
+             
+                        elemento.value="Empezar";
+                        clearTimeout(timeout);
+                        timeout=0;
+                    }
+                }
+             
+                function funcionando()
+                {
+                    // obteneos la fecha actual
+                    var actual = new Date().getTime();
+             
+                    // obtenemos la diferencia entre la fecha actual y la de inicio
+                    var diff=new Date(actual-inicio);
+             
+                    // mostramos la diferencia entre la fecha actual y la inicial
+                    var result=LeadingZero(diff.getUTCHours())+":"+LeadingZero(diff.getUTCMinutes())+":"+LeadingZero(diff.getUTCSeconds());
+                    document.getElementById('crono').innerHTML = result;
+             
+                    // Indicamos que se ejecute esta función nuevamente dentro de 1 segundo
+                    timeout=setTimeout("funcionando()",1000);
+                }
+             
+                /* Funcion que pone un 0 delante de un valor si es necesario */
+                function LeadingZero(Time) {
+                    return (Time < 10) ? "0" + Time : + Time;
+                }
+                </script>
+             
+                <style>
+                .crono_wrapper {text-align:center;width:200px;}
+                </style>
+        
+    </head>
+    <style>
+        body{
+            background: tan;
+        }
+        h2{
+            margin-left: 550px;
+            margin-top: 250px;
+            width: 100px;
+            height: 30px;
+            color: white;
+            font-size: 50px;
+        
+        }
+        input{
+            margin-left: 600px;
+            margin-top: 90px;
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            background: yellowgreen; 
+        }
+        .cuadro{
+            width: 300px;
+            height: 500px;
+            border-radius: 10px;
+            background: steelblue;
+            margin-top: -320px;
+            margin-left: 500px;
+        }
+        </style>
+    <body>
+            <div class="crono_wrapper">
+                    <h2 id='crono'>00:00:00</h2>
+                    <input type="button" value="Empezar" onclick="empezarDetener(this);">
+                </div>
+            <div class="cuadro"></div>
+             
+            
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
+        <script src="sketch.js"></script>
+    </body>
+</html>
